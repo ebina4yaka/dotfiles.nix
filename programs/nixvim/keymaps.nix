@@ -2,6 +2,11 @@
   programs.nixvim.keymaps = [
     {
       mode = "n";
+      key = "<Space>";
+      action = "<Nop>";
+    }
+    {
+      mode = "n";
       key = "<C-h>";
       action = "<C-w>h";
       options = {

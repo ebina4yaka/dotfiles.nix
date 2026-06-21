@@ -11,6 +11,9 @@
       pairs = {
         enable = true;
       };
+      icons = {
+        enable = true;
+      };
     };
   };
 }

@@ -16,6 +16,9 @@
       nix = {
         enable = true;
       };
+      which-key = {
+        enable = true;
+      };
       bufferline = {
         enable = true;
       };
@@ -44,5 +47,6 @@
     ./plugins/snacks.nix
     ./plugins/dashboard.nix
     ./plugins/neo-tree.nix
+    ./plugins/smear-cursor.nix
   ];
 }

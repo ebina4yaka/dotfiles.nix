@@ -3,10 +3,9 @@
     # Core plugins
     treesitter = {
       enable = true;
+      highlight.enable = true;
+      indent.enable = true;
       settings = {
-        ensure_installed = "all";
-        highlight.enable = true;
-        indent.enable = true;
         incremental_selection = {
           enable = true;
           keymaps = {
