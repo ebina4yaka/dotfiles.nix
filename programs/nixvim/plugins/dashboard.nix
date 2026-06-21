@@ -99,10 +99,11 @@
           "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
         ];
         mru = {
-          limit = 20;
+          limit = 10;
         };
         project = {
           enable = true;
+          limit = 10;
           action = {
             __raw = "function(path) _G.dashboard_project_select_handler(path) end";
           };
