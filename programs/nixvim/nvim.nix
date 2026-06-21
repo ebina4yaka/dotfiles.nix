@@ -14,15 +14,6 @@
           WinSeparator = 1;
         };
       };
-      cyberdream = {
-        enable = false;
-        settings = {
-          boaderless_telescope = true;
-          terminal_colors = true;
-          italic_comments = true;
-          transparent = true;
-        };
-      };
     };
     enable = true;
     vimAlias = true;
