@@ -1,5 +1,14 @@
 {
   programs.nixvim = {
+    performance.combinePlugins = {
+      enable = true;
+      standalonePlugins = [
+        "lualine.nvim"
+        "vim-moonfly-colors"
+        "nvim-treesitter"
+        "snacks.nvim"
+      ];
+    };
     colorschemes = {
       moonfly = {
         enable = true;
