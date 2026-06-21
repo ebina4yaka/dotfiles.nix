@@ -6,7 +6,10 @@
       action = "<Nop>";
     }
     {
-      mode = "n";
+      mode = [
+        "n"
+        "t"
+      ];
       key = "<C-h>";
       action = "<C-w>h";
       options = {
@@ -14,7 +17,10 @@
       };
     }
     {
-      mode = "n";
+      mode = [
+        "n"
+        "t"
+      ];
       key = "<C-j>";
       action = "<C-w>j";
       options = {
@@ -22,7 +28,10 @@
       };
     }
     {
-      mode = "n";
+      mode = [
+        "n"
+        "t"
+      ];
       key = "<C-k>";
       action = "<C-w>k";
       options = {
@@ -30,7 +39,10 @@
       };
     }
     {
-      mode = "n";
+      mode = [
+        "n"
+        "t"
+      ];
       key = "<C-l>";
       action = "<C-w>l";
       options = {

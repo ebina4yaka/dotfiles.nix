@@ -18,6 +18,9 @@
       };
       which-key = {
         enable = true;
+        settings = {
+          preset = "helix";
+        };
       };
       bufferline = {
         enable = true;
@@ -29,9 +32,6 @@
         enable = true;
       };
       persistence = {
-        enable = true;
-      };
-      neogit = {
         enable = true;
       };
     };
@@ -48,5 +48,7 @@
     ./plugins/dashboard.nix
     ./plugins/neo-tree.nix
     ./plugins/smear-cursor.nix
+    ./plugins/neogit.nix
+    ./plugins/toggleterm.nix
   ];
 }
