@@ -101,7 +101,6 @@
       color.ui = "auto";
     };
   };
-
   imports = [
     ./programs/nixvim/nvim.nix
   ];

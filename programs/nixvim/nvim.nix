@@ -1,5 +1,29 @@
 {
   programs.nixvim = {
+    colorschemes = {
+      moonfly = {
+        enable = true;
+        settings = {
+          Italics = true;
+          NormalFloat = false;
+          TerminalColors = true;
+          Transparent = true;
+          Undercurls = true;
+          UnderlineMatchParen = false;
+          VirtualTextColor = false;
+          WinSeparator = 1;
+        };
+      };
+      cyberdream = {
+        enable = false;
+        settings = {
+          boaderless_telescope = true;
+          terminal_colors = true;
+          italic_comments = true;
+          transparent = true;
+        };
+      };
+    };
     enable = true;
     vimAlias = true;
     globals = {
@@ -11,6 +35,7 @@
       shiftwidth = 2;
       tabstop = 2;
       number = true;
+      termguicolors = true;
     };
     plugins = {
       nix = {

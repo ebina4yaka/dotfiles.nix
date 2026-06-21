@@ -21,7 +21,11 @@
             
             -- ファイルが開いた直後に安全にNeo-treeを起動
             vim.schedule(function()
+              local current_win = vim.api.nvim_get_current_win()
               vim.cmd("Neotree reveal")
+              if vim.api.nvim_win_is_valid(current_win) then
+                vim.api.nvim_set_current_win(current_win)
+              end
             end)
           end
 
@@ -54,7 +58,11 @@
                 local open_and_neotree = function()
                   actions.select_default(f_prompt_bufnr)
                   vim.schedule(function()
+                    local current_win = vim.api.nvim_get_current_win()
                     vim.cmd("Neotree reveal")
+                    if vim.api.nvim_win_is_valid(current_win) then
+                      vim.api.nvim_set_current_win(current_win)
+                    end
                   end)
                 end
                 
