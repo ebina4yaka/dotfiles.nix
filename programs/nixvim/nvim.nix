@@ -25,6 +25,9 @@
       bufferline = {
         enable = true;
       };
+      project-nvim = {
+        enable = true;
+      };
       lualine = {
         enable = true;
       };
