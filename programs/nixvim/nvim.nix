@@ -6,7 +6,31 @@
       mapleader = " ";
     };
     opts = {
+      autoindent = true;
+      expandtab = true;
+      shiftwidth = 2;
+      tabstop = 2;
       number = true;
+    };
+    plugins = {
+      nix = {
+        enable = true;
+      };
+      bufferline = {
+        enable = true;
+      };
+      lualine = {
+        enable = true;
+      };
+      noice = {
+        enable = true;
+      };
+      persistence = {
+        enable = true;
+      };
+      neogit = {
+        enable = true;
+      };
     };
   };
 
@@ -15,5 +39,10 @@
     ./plugins/lsp.nix
     ./plugins/cmp.nix
     ./plugins/telescope.nix
+    ./plugins/mini.nix
+    ./plugins/treesit.nix
+    ./plugins/snacks.nix
+    ./plugins/dashboard.nix
+    ./plugins/neo-tree.nix
   ];
 }
