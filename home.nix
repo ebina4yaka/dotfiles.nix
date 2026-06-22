@@ -1,10 +1,22 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  username,
+  homeDirectory,
+  ...
+}:
 
+let
+  # Per-machine git identity lives OUTSIDE the repo (not committed) and is read
+  # at eval time via --impure. Absent on machines that use the default identity.
+  gitLocalPath = homeDirectory + "/.config/home-manager/git-local.nix";
+  gitLocal = if builtins.pathExists gitLocalPath then import gitLocalPath else { };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  # manage. These are passed in from flake.nix (resolved from $USER / $HOME).
+  home.username = username;
+  home.homeDirectory = homeDirectory;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -95,7 +107,8 @@
       user = {
         name = "ebina4yaka";
         email = "ebina4yaka@protonmail.com";
-      };
+      }
+      // gitLocal; # override name/email per machine if git-local.nix exists
       core.editor = "nvim";
       init.defaultBranch = "main";
       color.ui = "auto";

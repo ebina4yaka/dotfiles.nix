@@ -22,22 +22,34 @@
       ...
     }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      # Supported platforms. build.sh picks the right one for the current
+      # machine (via `nix eval --impure builtins.currentSystem`), so neither
+      # the architecture nor the user is hardcoded here.
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      # Build a home configuration for the given system, resolving the active
+      # user/home from the environment at evaluation time so the same config
+      # works on any machine (requires --impure when switching).
+      mkHome =
+        system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = {
+            username = builtins.getEnv "USER";
+            homeDirectory = builtins.getEnv "HOME";
+          };
+          modules = [
+            ./home.nix
+            nixvim.homeModules.nixvim
+          ];
+        };
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.${system}.nixfmt-tree;
-      homeConfigurations."nixos" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          ./home.nix
-          nixvim.homeModules.nixvim
-        ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+      homeConfigurations = forAllSystems mkHome;
     };
 }
