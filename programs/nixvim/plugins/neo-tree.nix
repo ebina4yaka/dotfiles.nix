@@ -7,6 +7,12 @@
         "buffers"
         "git_status"
       ];
+      filesystem = {
+        follow_current_file = {
+          enabled = true;
+        };
+        use_libuv_file_watcher = true;
+      };
     };
   };
 }

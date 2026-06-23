@@ -30,6 +30,7 @@
       mapleader = " ";
     };
     opts = {
+      autoread = true;
       autoindent = true;
       expandtab = true;
       shiftwidth = 2;
@@ -60,6 +61,9 @@
         enable = true;
       };
       persistence = {
+        enable = true;
+      };
+      copilot-cmp = {
         enable = true;
       };
     };
