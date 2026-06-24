@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   username,
   homeDirectory,
@@ -116,5 +115,6 @@ in
   };
   imports = [
     ./programs/nixvim/nvim.nix
+    ./programs/tmux/tmux.nix
   ];
 }
