@@ -19,9 +19,10 @@
       bind -r H resize-pane -L 3
       bind -r J resize-pane -D 3
       bind -r K resize-pane -U 3
-      	bind -r L resize-pane -R 3
+      bind -r L resize-pane -R 3
 
       set -g status-right '#(TZ="Asia/Tokyo" date "+%%Y-%%m-%%d %%H:%%M:%%S")'
+      set -g status-interval 1
     '';
 
     plugins = with pkgs; [
