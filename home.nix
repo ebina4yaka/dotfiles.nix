@@ -2,6 +2,7 @@
   pkgs,
   username,
   homeDirectory,
+  lib,
   ...
 }:
 
@@ -58,6 +59,7 @@ in
     gitu
     gnumake
     devenv
+    grc
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -98,7 +100,32 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    plugins = with pkgs.fishPlugins; [
+      {
+        name = "grc";
+        src = grc.src;
+      }
+      {
+        name = "fzf";
+        src = fzf.src;
+      }
+      {
+        name = "pure";
+        src = pure.src;
+      }
+      {
+        name = "z";
+        src = pkgs.fetchFromGitHub {
+          owner = "jethrokuan";
+          repo = "z";
+          rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
+          sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+        };
+      }
+    ];
+  };
 
   programs.git = {
     enable = true;
