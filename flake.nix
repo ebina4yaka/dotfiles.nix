@@ -12,6 +12,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # herdr (terminal multiplexer) is not in nixpkgs yet, so pull it from its
+    # own flake. It exposes overlays.default which adds `pkgs.herdr`.
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +25,7 @@
       nixvim,
       nixpkgs,
       home-manager,
+      herdr,
       ...
     }:
     let
@@ -37,7 +44,12 @@
       mkHome =
         system:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
+          # Import nixpkgs with the herdr overlay so `pkgs.herdr` is available
+          # in home.nix (herdr is not packaged in nixpkgs itself).
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ herdr.overlays.default ];
+          };
           extraSpecialArgs = {
             username = builtins.getEnv "USER";
             homeDirectory = builtins.getEnv "HOME";
