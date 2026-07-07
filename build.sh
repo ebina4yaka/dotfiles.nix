@@ -13,6 +13,6 @@ if command -v home-manager >/dev/null 2>&1; then
   NIX_CONFIG="access-tokens = github.com=$(gh auth token)" \
     home-manager switch --flake ".#${system}" --impure
 else
-  NIX_CONFIG="access-tokens = github.com=$(gh auth token)" \ 
+  NIX_CONFIG="access-tokens = github.com=$(gh auth token)" \
     nix run home-manager/master -- switch --flake ".#${system}" --impure
 fi
