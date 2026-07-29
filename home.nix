@@ -61,6 +61,7 @@ in
     devenv
     grc
     fastfetch
+    opencode
     onefetch
   ];
 
