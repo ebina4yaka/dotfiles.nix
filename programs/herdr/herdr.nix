@@ -21,6 +21,10 @@ let
   };
 in
 {
+  # Plugin registration (see plugins.nix); keybindings for plugin actions stay
+  # here with the rest of the keymap.
+  imports = [ ./plugins.nix ];
+
   # herdr comes from the herdr flake overlay (applied in flake.nix); it is not
   # packaged in nixpkgs.
   home.packages = [ pkgs.herdr ];
@@ -86,6 +90,16 @@ in
         (resizeCommand "prefix+shift+j" "down")
         (resizeCommand "prefix+shift+k" "up")
         (resizeCommand "prefix+shift+l" "right")
+
+        # Plugin actions. herdr 0.7 ignores keys declared in a plugin manifest,
+        # so every plugin binding has to be listed here. `a` for "actions":
+        # unused by the herdr defaults, so no duplicate-binding conflict.
+        {
+          key = "prefix+a";
+          type = "plugin_action";
+          command = "jt.command-palette.open";
+          description = "Command palette (all plugin actions)";
+        }
       ];
     };
   };

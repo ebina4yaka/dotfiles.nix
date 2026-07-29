@@ -18,10 +18,17 @@
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # herdr plugins. These are plain source trees, not flakes, so `flake = false`:
+    # they get pinned in flake.lock (and bumped by the dependabot nix group) and
+    # are registered with `herdr plugin link` by programs/herdr/plugins.nix.
+    herdr-command-palette = {
+      url = "github:JanTvrdik/herdr-command-palette";
+      flake = false;
+    };
   };
 
   outputs =
-    {
+    inputs@{
       nixvim,
       nixpkgs,
       home-manager,
@@ -52,6 +59,9 @@
             overlays = [ herdr.overlays.default ];
           };
           extraSpecialArgs = {
+            # `inputs` is passed through so modules can reach non-flake sources
+            # (e.g. the herdr plugins in programs/herdr/plugins.nix).
+            inherit inputs;
             username = builtins.getEnv "USER";
             homeDirectory = builtins.getEnv "HOME";
           };
