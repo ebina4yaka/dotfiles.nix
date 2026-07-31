@@ -46,6 +46,8 @@ in
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    gnused
+    gawk
     rustup
     bottom
     fzf
