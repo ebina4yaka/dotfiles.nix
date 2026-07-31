@@ -100,6 +100,7 @@ in
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
   };
 
   # Let Home Manager install and manage itself.
