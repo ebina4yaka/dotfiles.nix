@@ -69,6 +69,7 @@ in
     opencode
     onefetch
     nix-ld
+    nixd
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
