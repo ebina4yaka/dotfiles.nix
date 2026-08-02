@@ -49,6 +49,7 @@ in
     gnused
     gawk
     elixir
+    elixir-ls
     nodejs
     bruno-cli
     rustup
