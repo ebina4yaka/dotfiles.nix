@@ -153,5 +153,6 @@ in
     ./programs/nixvim/nvim.nix
     ./programs/tmux/tmux.nix
     ./programs/herdr/herdr.nix
+    ./programs/opencode/opencode.nix
   ];
 }
