@@ -154,5 +154,6 @@ in
     ./programs/tmux/tmux.nix
     ./programs/herdr/herdr.nix
     ./programs/opencode/opencode.nix
+    ./programs/gh/skills.nix
   ];
 }
