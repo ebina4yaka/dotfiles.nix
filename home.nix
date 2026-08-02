@@ -68,6 +68,7 @@ in
     fastfetch
     opencode
     onefetch
+    nix-ld
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -104,6 +105,10 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+    NIX_LD_LIBRARY_PATH = lib.makeLibraryPath [
+      pkgs.stdenv.cc.cc.lib
+    ];
+    NIX_LD = lib.getExe' pkgs.nix-ld "nix-ld";
   };
 
   # Let Home Manager install and manage itself.
@@ -131,6 +136,15 @@ in
           repo = "z";
           rev = "e0e1b9dfdba362f8ab1ae8c1afc7ccf62b89f7eb";
           sha256 = "0dbnir6jbwjpjalz14snzd3cgdysgcs3raznsijd6savad3qhijc";
+        };
+      }
+      {
+        name = "enhancd";
+        src = pkgs.fetchFromGitHub {
+          owner = "b4b4r07";
+          repo = "enhancd";
+          rev = "v2.5.1";
+          sha256 = "sha256-kaintLXSfLH7zdLtcoZfVNobCJCap0S/Ldq85wd3krI=";
         };
       }
     ];
