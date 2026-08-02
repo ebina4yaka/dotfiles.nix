@@ -77,6 +77,7 @@
   imports = [
     ./keymaps.nix
     ./plugins/lsp.nix
+    ./plugins/bruno.nix
     ./plugins/cmp.nix
     ./plugins/telescope.nix
     ./plugins/mini.nix

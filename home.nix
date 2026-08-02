@@ -50,6 +50,7 @@ in
     gawk
     elixir
     nodejs
+    bruno-cli
     rustup
     bottom
     fzf
