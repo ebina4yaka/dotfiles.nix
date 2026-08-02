@@ -48,6 +48,8 @@ in
     # '')
     gnused
     gawk
+    elixir
+    nodejs
     rustup
     bottom
     fzf
