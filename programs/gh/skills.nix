@@ -48,7 +48,7 @@ let
     ''
       if [ ! -f "$HOME/.opencode/skills/${name}/SKILL.md" ]; then
         echo "Installing skill ${name} (${repo})..."
-        ${lib.getExe pkgs.gh} skill install ${repo} ${arg} --agent opencode --scope user
+        ${lib.getExe pkgs.gh} skill install ${repo} ${arg} --agent opencode --scope user --force
       fi
     '';
 in
