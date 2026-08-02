@@ -71,6 +71,7 @@ in
     onefetch
     nix-ld
     nixd
+    inotify-tools
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
