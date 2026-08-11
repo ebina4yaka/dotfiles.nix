@@ -8,5 +8,12 @@
         "theme": "system"
       }
     '';
+
+    ".config/opencode/opencode.jsonc".text = ''
+      {
+        "$schema": "https://opencode.ai/config.json",
+        "lsp": true
+      }
+    '';
   };
 }
