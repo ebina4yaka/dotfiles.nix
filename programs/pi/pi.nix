@@ -1,0 +1,44 @@
+{ pkgs, ... }:
+
+let
+  # Official subagent extension (MCP は npm package: pi-mcp-adapter を使う)。
+  # pi 本体には MCP / subagent は同梱されておらず、package/extensions で追加する。
+  # pi-mono は monorepo で examples 部分だけの standalone package が無いため、
+  # 公式 README の手順どおり extension / agents / prompts を直接 symlink する。
+  piMono = pkgs.fetchFromGitHub {
+    owner = "earendil-works";
+    repo = "pi";
+    rev = "9d2ec7ffabe927bfad2214c1cee25b6632a78dcf";
+    hash = "sha256-ViKPztal6EESHJhG2QMuqGIFc1Kupwohr1h8LslpN18=";
+  };
+  subagent = "${piMono}/packages/coding-agent/examples/extensions/subagent";
+in
+{
+  home.file = {
+    # pi の package bundle を設定する。`pi update` / 初回起動時に npm / git 経由で
+    # ~/.pi/agent/npm/ (git package は ~/.pi/agent/git/) にインストールされ、
+    # restart 後に有効になる。
+    # - npm:pi-mcp-adapter             : MCP サーバーを使えるようにする extension
+    # - git:github.com/DietrichGebert/ponytail : ponytail extension + skills
+    ".pi/agent/settings.json".text = ''
+      {
+        "packages": ["npm:pi-mcp-adapter", "git:github.com/DietrichGebert/ponytail"]
+      }
+    '';
+
+    # subagent extension (必ずサブディレクトリに index.ts を置く)
+    ".pi/agent/extensions/subagent/index.ts".source = "${subagent}/index.ts";
+    ".pi/agent/extensions/subagent/agents.ts".source = "${subagent}/agents.ts";
+
+    # subagent の agent 定義 (~/.pi/agent/agents/*.md は常に読み込まれる)
+    ".pi/agent/agents/scout.md".source = "${subagent}/agents/scout.md";
+    ".pi/agent/agents/planner.md".source = "${subagent}/agents/planner.md";
+    ".pi/agent/agents/reviewer.md".source = "${subagent}/agents/reviewer.md";
+    ".pi/agent/agents/worker.md".source = "${subagent}/agents/worker.md";
+
+    # subagent の workflow スラッシュコマンド (implement / scout-and-plan / implement-and-review)
+    ".pi/agent/prompts/implement.md".source = "${subagent}/prompts/implement.md";
+    ".pi/agent/prompts/scout-and-plan.md".source = "${subagent}/prompts/scout-and-plan.md";
+    ".pi/agent/prompts/implement-and-review.md".source = "${subagent}/prompts/implement-and-review.md";
+  };
+}

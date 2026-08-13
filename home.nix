@@ -72,6 +72,7 @@ in
     nix-ld
     nixd
     inotify-tools
+    pi-coding-agent
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -172,5 +173,6 @@ in
     ./programs/herdr/herdr.nix
     ./programs/opencode/opencode.nix
     ./programs/gh/skills.nix
+    ./programs/pi/pi.nix
   ];
 }
