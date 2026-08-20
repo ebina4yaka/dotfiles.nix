@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   programs.nixvim.keymaps = [
     {
@@ -49,5 +50,51 @@
         remap = true;
       };
     }
-  ];
+    {
+      mode = "n";
+      key = "<S-l>";
+      action = "<cmd>BufferLineCycleNext<cr>";
+      options = {
+        desc = "Next buffer";
+      };
+    }
+    {
+      mode = "n";
+      key = "<S-h>";
+      action = "<cmd>BufferLineCyclePrev<cr>";
+      options = {
+        desc = "Prev buffer";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>x";
+      action = "<cmd>lua Snacks.bufdelete()<cr>";
+      options = {
+        desc = "Close buffer";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>bo";
+      action = "<cmd>lua Snacks.bufdelete.other()<cr>";
+      options = {
+        desc = "Close other buffers";
+      };
+    }
+  ]
+  ++ lib.genList (
+    i:
+    let
+      n = toString (i + 1);
+    in
+    {
+      mode = "n";
+      key = "<leader>${n}";
+      action = "<cmd>BufferLineGoToBuffer ${n}<cr>";
+      options = {
+        desc = "Go to buffer ${n}";
+      };
+    }
+  ) 9;
 }
