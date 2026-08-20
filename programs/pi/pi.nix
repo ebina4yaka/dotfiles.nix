@@ -22,7 +22,24 @@ in
     # - git:github.com/DietrichGebert/ponytail : ponytail extension + skills
     ".pi/agent/settings.json".text = ''
       {
-        "packages": ["npm:pi-mcp-adapter", "git:github.com/DietrichGebert/ponytail"]
+        "packages": [
+          "npm:pi-mcp-adapter",
+          "git:github.com/DietrichGebert/ponytail",
+          "npm:pi-web-access",
+          "git:github.com/ogulcancelik/pi-session-recall",
+          "npm:pi-fff",
+          "npm:pi-lens",
+          "git:github.com/juicesharp/rpiv-ask-user-question",
+          "npm:pi-plan",
+          "git:github.com/earendil-works/pi-review",
+          "npm:pi-context-view",
+          "git:github.com/sting8k/pi-vcc",
+          "git:github.com/ahm3tj4f/pi-undo",
+          "npm:pi-btw",
+          "npm:pi-add-dir",
+          "git:github.com/earendil-works/pi-transcribe",
+          "npm:pi-codex-image-gen"
+        ]
       }
     '';
 
