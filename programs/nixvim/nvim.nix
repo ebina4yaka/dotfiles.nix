@@ -1,5 +1,11 @@
 {
   programs.nixvim = {
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (pkg.pname or "") [
+        "copilot-language-server"
+      ];
+
     performance = {
       combinePlugins = {
         enable = true;
