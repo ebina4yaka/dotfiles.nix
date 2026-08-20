@@ -27,9 +27,6 @@
         astro = {
           enable = true;
         };
-        rls = {
-          enable = true;
-        };
         elixirls = {
           enable = true;
         };
