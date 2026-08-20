@@ -24,6 +24,10 @@
       "<leader>ff" = {
         action = "find_files";
       };
+      # find buffer
+      "<leader>fb" = {
+        action = "buffers";
+      };
     };
   };
 }
