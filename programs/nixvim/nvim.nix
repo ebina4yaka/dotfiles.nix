@@ -74,9 +74,6 @@
       persistence = {
         enable = true;
       };
-      copilot-cmp = {
-        enable = true;
-      };
     };
   };
 

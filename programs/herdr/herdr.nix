@@ -65,12 +65,6 @@ in
       # `s` is herdr's default "open settings"; move it out of the way.
       settings = "prefix+shift+s";
 
-      # Focus movement (already the default, set explicitly for clarity).
-      focus_pane_left = "prefix+h";
-      focus_pane_down = "prefix+j";
-      focus_pane_up = "prefix+k";
-      focus_pane_right = "prefix+l";
-
       # Free up prefix+shift+h/j/k/l (default: swap) for tmux-style resize.
       swap_pane_left = "";
       swap_pane_down = "";

@@ -86,11 +86,9 @@ let
             "${lib.getExe pkgs.gh} skill install ${repo} ${arg} --agent ${agent.name} --scope user --force";
       in
       ''
-        {
-          if [ ! -f "$HOME/${agent.dir}/${name}/SKILL.md" ]; then
-            ${gh} > /dev/null 2>&1 || true
-          fi
-        } &
+        if [ ! -f "$HOME/${agent.dir}/${name}/SKILL.md" ]; then
+          ${gh} > /dev/null 2>&1 || true
+        fi &
       ''
     ) agents;
 in

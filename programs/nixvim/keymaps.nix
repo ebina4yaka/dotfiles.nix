@@ -7,50 +7,6 @@
       action = "<Nop>";
     }
     {
-      mode = [
-        "n"
-        "t"
-      ];
-      key = "<C-h>";
-      action = "<C-w>h";
-      options = {
-        remap = true;
-      };
-    }
-    {
-      mode = [
-        "n"
-        "t"
-      ];
-      key = "<C-j>";
-      action = "<C-w>j";
-      options = {
-        remap = true;
-      };
-    }
-    {
-      mode = [
-        "n"
-        "t"
-      ];
-      key = "<C-k>";
-      action = "<C-w>k";
-      options = {
-        remap = true;
-      };
-    }
-    {
-      mode = [
-        "n"
-        "t"
-      ];
-      key = "<C-l>";
-      action = "<C-w>l";
-      options = {
-        remap = true;
-      };
-    }
-    {
       mode = "n";
       key = "<S-l>";
       action = "<cmd>BufferLineCycleNext<cr>";
@@ -83,6 +39,23 @@
       };
     }
   ]
+  ++
+    lib.forEach
+      [
+        "h"
+        "j"
+        "k"
+        "l"
+      ]
+      (d: {
+        mode = [
+          "n"
+          "t"
+        ];
+        key = "<C-${d}>";
+        action = "<C-w>${d}";
+        options.remap = true;
+      })
   ++ lib.genList (
     i:
     let

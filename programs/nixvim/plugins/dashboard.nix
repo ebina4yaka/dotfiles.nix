@@ -3,23 +3,13 @@
     local actions = require("telescope.actions")
     local action_state = require("telescope.actions.state")
 
-    -- 引数 'path' を受け取って処理するグローバル関数
-    _G.dashboard_project_select_handler = function(path)
-      if not path or path == "" then return end
-
-      -- 1. カレントディレクトリを選択されたプロジェクトのパスに変更
-      vim.fn.chdir(path)
-
-      -- 2. そのパスを cwd に指定して Telescope のファイル検索を起動
+    -- 指定 cwd で Telescope のファイル検索を起動し、ファイル選択時に Neo-tree も開く
+    local function find_files_with_neotree(cwd)
       require("telescope.builtin").find_files({
-        cwd = path,
+        cwd = cwd,
         attach_mappings = function(prompt_bufnr, map)
-          
-          -- ファイル選択時のEnterキーの挙動を上書き
           local open_and_neotree = function()
             actions.select_default(prompt_bufnr)
-            
-            -- ファイルが開いた直後に安全にNeo-treeを起動
             vim.schedule(function()
               local current_win = vim.api.nvim_get_current_win()
               vim.cmd("Neotree reveal")
@@ -28,55 +18,34 @@
               end
             end)
           end
-
           map("i", "<CR>", open_and_neotree)
           map("n", "<CR>", open_and_neotree)
           return true
-        end
+        end,
       })
     end
 
+    _G.dashboard_project_select_handler = function(path)
+      if not path or path == "" then return end
+      vim.fn.chdir(path)
+      find_files_with_neotree(path)
+    end
+
     _G.dashboard_project_file_neotree = function()
-      -- プロジェクト一覧を取得
       require("telescope").extensions.projects.projects({
         attach_mappings = function(prompt_bufnr, map)
-          
           local on_project_select = function()
             local entry = action_state.get_selected_entry()
             if not entry then return end
-            
             local project_path = entry.value or entry.path
             actions.close(prompt_bufnr)
-            
-            -- cwdの変更
             vim.fn.chdir(project_path)
-            
-            -- 移動先のプロジェクト内でファイル検索
-            require("telescope.builtin").find_files({
-              cwd = project_path,
-              attach_mappings = function(f_prompt_bufnr, f_map)
-                local open_and_neotree = function()
-                  actions.select_default(f_prompt_bufnr)
-                  vim.schedule(function()
-                    local current_win = vim.api.nvim_get_current_win()
-                    vim.cmd("Neotree reveal")
-                    if vim.api.nvim_win_is_valid(current_win) then
-                      vim.api.nvim_set_current_win(current_win)
-                    end
-                  end)
-                end
-                
-                f_map("i", "<CR>", open_and_neotree)
-                f_map("n", "<CR>", open_and_neotree)
-                return true
-              end
-            })
+            find_files_with_neotree(project_path)
           end
-          
           map("i", "<CR>", on_project_select)
           map("n", "<CR>", on_project_select)
           return true
-        end
+        end,
       })
     end
   '';

@@ -16,6 +16,5 @@
         };
       };
     };
-    cmp-vim-lsp.enable = true;
   };
 }
