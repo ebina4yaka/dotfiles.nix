@@ -47,6 +47,7 @@ in
     nixd
     inotify-tools
     pi-coding-agent
+    python3
   ];
 
   home.sessionVariables = {
