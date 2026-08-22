@@ -12,6 +12,16 @@ let
     hash = "sha256-ViKPztal6EESHJhG2QMuqGIFc1Kupwohr1h8LslpN18=";
   };
   subagent = "${piMono}/packages/coding-agent/examples/extensions/subagent";
+
+  # pi-splash (github.com/ghoseb/pi-splash) を vendoring して導入。
+  # upstream の index.ts はロゴがハードコードされているため、anim.ts / splash.ts
+  # はそのまま使い、index.ts だけ PRTS ロゴ版をローカルで差し替えている。
+  piSplash = pkgs.fetchFromGitHub {
+    owner = "ghoseb";
+    repo = "pi-splash";
+    rev = "dfe0dd5798152b099a8fcb2cb67b198ab326885f";
+    hash = "sha256-HlKiIO55lyps7St6/yps13UKRKcIIOkzyIhshVa10QQ=";
+  };
 in
 {
   home.file = {
@@ -47,6 +57,11 @@ in
     # subagent extension (必ずサブディレクトリに index.ts を置く)
     ".pi/agent/extensions/subagent/index.ts".source = "${subagent}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${subagent}/agents.ts";
+
+    # PRTS splash extension (pi-splash vendored)
+    ".pi/agent/extensions/pi-splash/index.ts".source = ./pi-splash/index.ts;
+    ".pi/agent/extensions/pi-splash/splash.ts".source = "${piSplash}/splash.ts";
+    ".pi/agent/extensions/pi-splash/anim.ts".source = "${piSplash}/anim.ts";
 
     # subagent の agent 定義 (~/.pi/agent/agents/*.md は常に読み込まれる)
     ".pi/agent/agents/scout.md".source = "${subagent}/agents/scout.md";
