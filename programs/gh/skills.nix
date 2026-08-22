@@ -19,30 +19,6 @@ let
   # 既にインストール済みならスキップ。更新は `gh skill update` で行う。
   skills = [
     {
-      name = "banner-design";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
-      name = "brand";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
-      name = "design";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
-      name = "design-system";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
-      name = "slides";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
-      name = "ui-styling";
-      repo = "nextlevelbuilder/ui-ux-pro-max-skill";
-    }
-    {
       name = "rust";
       repo = "cordx56/dotfiles";
       arg = ".agents/skills/rust --allow-hidden-dirs";

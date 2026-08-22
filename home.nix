@@ -48,7 +48,10 @@ in
     inotify-tools
     pi-coding-agent
     python3
+    bun
   ];
+
+  home.sessionPath = [ "$HOME/.bun/bin" ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -58,6 +61,14 @@ in
     ];
     NIX_LD = lib.getExe' pkgs.nix-ld "nix-ld";
   };
+
+  home.activation.installUiUxProMax = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${pkgs.bun}/bin:$HOME/.bun/bin:$PATH"
+    if [ ! -f "$HOME/.bun/bin/uipro" ]; then
+      bun install -g ui-ux-pro-max-cli
+    fi
+    uipro init --ai universal --global || true
+  '';
 
   programs.home-manager.enable = true;
 
