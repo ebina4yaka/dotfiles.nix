@@ -49,7 +49,7 @@ in
           "npm:pi-add-dir",
           "git:github.com/earendil-works/pi-transcribe",
           "npm:pi-codex-image-gen",
-          "git:github.com/v587d/pi-ocgo-usage"
+          "npm:pi-ocgo-usage"
         ]
       }
     '';
