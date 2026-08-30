@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "bun": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787568017,
+        "narHash": "sha256-RTrMw0owN1HJOlgsJHKhHdSxW9mXUGd7k2MI3SHOyJ0=",
+        "owner": "sakiko999",
+        "repo": "nixpkg-overlay",
+        "rev": "0f889bc13fa242405d27ff569d14896cd0a89adc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sakiko999",
+        "repo": "nixpkg-overlay",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -102,6 +122,7 @@
     },
     "root": {
       "inputs": {
+        "bun": "bun",
         "herdr": "herdr",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

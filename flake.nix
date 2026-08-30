@@ -18,6 +18,12 @@
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # bun overlay that tracks the latest upstream release (oven-sh/bun's own
+    # flake only exposes a devShell, not a package/overlay). Adds `pkgs.bun`.
+    bun = {
+      url = "github:sakiko999/nixpkg-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +32,7 @@
       nixpkgs,
       home-manager,
       herdr,
+      bun,
       ...
     }:
     let
@@ -49,7 +56,10 @@
           # in home.nix (herdr is not packaged in nixpkgs itself).
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [ herdr.overlays.default ];
+            overlays = [
+              herdr.overlays.default
+              bun.overlays.default
+            ];
           };
           extraSpecialArgs = {
             username = builtins.getEnv "USER";

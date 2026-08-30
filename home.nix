@@ -20,6 +20,8 @@ in
 
   home.stateVersion = "26.11";
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
     gnused
     gawk
@@ -48,7 +50,7 @@ in
     inotify-tools
     pi-coding-agent
     python3
-    bun
+    cursor-cli
   ];
 
   home.sessionPath = [ "$HOME/.bun/bin" ];
@@ -123,8 +125,9 @@ in
       user = {
         name = "ebina4yaka";
         email = "ebina4yaka@protonmail.com";
-      };
-      pull.rebase = true // gitLocal;
+      }
+      // gitLocal;
+      pull.rebase = true;
       core.editor = "nvim";
       init.defaultBranch = "main";
       color.ui = "auto";
