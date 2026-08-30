@@ -123,8 +123,8 @@ in
       user = {
         name = "ebina4yaka";
         email = "ebina4yaka@protonmail.com";
-      }
-      // gitLocal;
+      };
+      pull.rebase = true // gitLocal;
       core.editor = "nvim";
       init.defaultBranch = "main";
       color.ui = "auto";
