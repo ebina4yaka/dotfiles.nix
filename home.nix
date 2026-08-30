@@ -11,6 +11,31 @@ let
   # at eval time via --impure. Absent on machines that use the default identity.
   gitLocalPath = homeDirectory + "/.config/home-manager/git-local.nix";
   gitLocal = if builtins.pathExists gitLocalPath then import gitLocalPath else { };
+
+  # opencode v2 is beta and not in nixpkgs. The npm package's postinstall picks a
+  # musl build that can't run on NixOS (no /lib/ld-musl-*), so vendor the glibc
+  # baseline artifact and patch its loader to the nix store glibc instead.
+  # Coexists with `opencode` (v1) as `opencode2`.
+  opencode2 = pkgs.stdenv.mkDerivation {
+    pname = "opencode2";
+    version = "0.0.0-beta-18684";
+    nativeBuildInputs = [ pkgs.patchelf ];
+    src = pkgs.fetchurl {
+      url = "https://registry.npmjs.org/@opencode-ai/cli-linux-x64-baseline/-/cli-linux-x64-baseline-0.0.0-beta-18684.tgz";
+      sha256 = "sha256-KkpcAV4LcLuk/O8VF2IU4KCnzBwrrmySxsoA3tO8QHs=";
+    };
+    sourceRoot = "package";
+    dontStrip = true;
+    buildPhase = ''
+      interp=$(find -L ${pkgs.stdenv.cc.libc}/lib64 -maxdepth 1 -name "ld-linux*.so.*" 2>/dev/null | head -1)
+      [ -z "$interp" ] && interp=$(find -L ${pkgs.stdenv.cc.libc}/lib -maxdepth 1 -name "ld-linux*.so.*" | head -1)
+      patchelf --set-interpreter "$interp" --set-rpath "${pkgs.stdenv.cc.libc}/lib:${pkgs.stdenv.cc.libc}/lib64" bin/opencode2
+    '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp bin/opencode2 $out/bin/opencode2
+    '';
+  };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -49,6 +74,7 @@ in
     nixd
     inotify-tools
     pi-coding-agent
+    opencode2
     python3
     cursor-cli
   ];
@@ -70,15 +96,6 @@ in
       bun install -g ui-ux-pro-max-cli
     fi
     uipro init --ai universal --global || true
-  '';
-
-  # opencode2 is beta and not in nixpkgs, so install via bun like ui-ux-pro-max.
-  # It coexists with `opencode` (v1) and runs as `opencode2`.
-  home.activation.installOpencode2 = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export PATH="${pkgs.bun}/bin:$HOME/.bun/bin:$PATH"
-    if [ ! -f "$HOME/.bun/bin/opencode2" ]; then
-      bun install -g --trust @opencode-ai/cli@beta
-    fi
   '';
 
   programs.home-manager.enable = true;
