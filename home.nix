@@ -70,6 +70,15 @@ in
     uipro init --ai universal --global || true
   '';
 
+  # opencode2 is beta and not in nixpkgs, so install via bun like ui-ux-pro-max.
+  # It coexists with `opencode` (v1) and runs as `opencode2`.
+  home.activation.installOpencode2 = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${pkgs.bun}/bin:$HOME/.bun/bin:$PATH"
+    if [ ! -f "$HOME/.bun/bin/opencode2" ]; then
+      bun install -g --trust @opencode-ai/cli@beta
+    fi
+  '';
+
   programs.home-manager.enable = true;
 
   programs.fish = {
