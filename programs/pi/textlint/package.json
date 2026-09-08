@@ -1,0 +1,9 @@
+{
+  "name": "pi-textlint",
+  "private": true,
+  "description": "pi extension: lint assistant output with textlint-rule-preset-ai-writing",
+  "dependencies": {
+    "textlint": "^15.8.0",
+    "textlint-rule-preset-ai-writing": "^1.1.0"
+  }
+}

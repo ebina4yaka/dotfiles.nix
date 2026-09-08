@@ -58,6 +58,28 @@ in
     ".pi/agent/extensions/subagent/index.ts".source = "${subagent}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${subagent}/agents.ts";
 
+    # textlint extension (アシスタント出力を textlint-rule-preset-ai-writing で検査し、
+    # 指摘を次の LLM 呼び出しに注入。node_modules は初回起動時に自動 npm install)
+    ".pi/agent/extensions/textlint/index.ts".source = ./textlint/index.ts;
+    ".pi/agent/extensions/textlint/package.json".text = ''
+      {
+        "name": "pi-textlint",
+        "private": true,
+        "description": "pi extension: lint assistant output with textlint-rule-preset-ai-writing",
+        "dependencies": {
+          "textlint": "^15.8.0",
+          "textlint-rule-preset-ai-writing": "^1.1.0"
+        }
+      }
+    '';
+    ".pi/agent/extensions/textlint/.textlintrc.json".text = ''
+      {
+        "rules": {
+          "preset-ai-writing": true
+        }
+      }
+    '';
+
     # PRTS splash extension (pi-splash vendored)
     ".pi/agent/extensions/pi-splash/index.ts".source = ./pi-splash/index.ts;
     ".pi/agent/extensions/pi-splash/splash.ts".source = "${piSplash}/splash.ts";
