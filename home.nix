@@ -52,6 +52,7 @@ in
     gawk
     elixir
     elixir-ls
+    kotlin-language-server
     nodejs
     bruno-cli
     rustup
