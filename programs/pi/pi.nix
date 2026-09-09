@@ -29,11 +29,13 @@ in
     # ~/.pi/agent/npm/ (git package は ~/.pi/agent/git/) にインストールされ、
     # restart 後に有効になる。
     # - npm:pi-mcp-adapter             : MCP サーバーを使えるようにする extension
+    # - npm:pi-language-tutor          : 言語学習 extension (writing check/tutor, フラッシュカード, 双語翻訳)
     # - git:github.com/DietrichGebert/ponytail : ponytail extension + skills
     ".pi/agent/settings.json".text = ''
       {
         "packages": [
           "npm:pi-mcp-adapter",
+          "npm:pi-language-tutor",
           "git:github.com/DietrichGebert/ponytail",
           "npm:pi-web-access",
           "git:github.com/ogulcancelik/pi-session-recall",
