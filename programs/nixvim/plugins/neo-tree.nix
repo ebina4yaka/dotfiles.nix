@@ -7,6 +7,9 @@
         "buffers"
         "git_status"
       ];
+      window = {
+        position = "right";
+      };
       filesystem = {
         follow_current_file = {
           enabled = true;
