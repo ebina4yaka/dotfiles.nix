@@ -51,11 +51,12 @@ in
     gnused
     gawk
     elixir
-    elixir-ls
     kotlin-language-server
     nodejs
     bruno-cli
-    rustup
+    # rustup は rust-analyzer の shim も置く。下の nixpkgs 版と bin/ が衝突するので
+    # 優先度を下げ、component を入れなくても動く nixpkgs 版を勝たせる。
+    (lowPrio rustup)
     bottom
     fzf
     lsd
@@ -72,12 +73,24 @@ in
     opencode
     onefetch
     nix-ld
-    nixd
     inotify-tools
     pi-coding-agent
     opencode2
     python3
     cursor-cli
+
+    # LSP サーバー。nixvim は自前で抱えるが、helix と Doom Emacs は PATH から
+    # 拾うのでここに置いて 2 つで共有する。
+    gopls
+    golangci-lint
+    golangci-lint-langserver
+    rust-analyzer
+    elixir-ls
+    nixd
+    astro-language-server
+    # nixvim だけ typescript-go（tsc --lsp）を使う。helix と eglot は既定の
+    # typescript-language-server のままにして設定を増やさない。
+    typescript-language-server
   ];
 
   home.sessionPath = [ "$HOME/.bun/bin" ];
@@ -153,6 +166,8 @@ in
   };
   imports = [
     ./programs/nixvim/nvim.nix
+    ./programs/helix/helix.nix
+    ./programs/emacs/emacs.nix
     ./programs/tmux/tmux.nix
     ./programs/herdr/herdr.nix
     ./programs/opencode/opencode.nix

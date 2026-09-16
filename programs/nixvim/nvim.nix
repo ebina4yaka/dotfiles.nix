@@ -21,17 +21,18 @@
       };
     };
     colorschemes = {
-      moonfly = {
+      modus = {
         enable = true;
         settings = {
-          Italics = true;
-          NormalFloat = false;
-          TerminalColors = true;
-          Transparent = true;
-          Undercurls = true;
-          UnderlineMatchParen = false;
-          VirtualTextColor = false;
-          WinSeparator = 1;
+          style = "modus_vivendi";
+          transparent = true;
+          styles = {
+            comments.italic = true;
+            keywords = {
+              bold = true;
+              italic = false;
+            };
+          };
         };
       };
     };
@@ -90,6 +91,7 @@
     ./plugins/neo-tree.nix
     ./plugins/smear-cursor.nix
     ./plugins/neogit.nix
+    ./plugins/octo.nix
     ./plugins/toggleterm.nix
   ];
 }

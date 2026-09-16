@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.nixvim.plugins = {
     lsp = {
@@ -23,6 +24,15 @@
         };
         tsgo = {
           enable = true;
+          # nixpkgs merged typescript-go into `typescript` (TS 7), renaming the
+          # binary tsgo -> tsc. nixvim/lspconfig still point at the old names,
+          # so both the package and cmd have to be overridden until they catch up.
+          package = pkgs.typescript;
+          cmd = [
+            "tsc"
+            "--lsp"
+            "--stdio"
+          ];
         };
         astro = {
           enable = true;
