@@ -158,5 +158,6 @@ in
     ./programs/opencode/opencode.nix
     ./programs/gh/skills.nix
     ./programs/pi/pi.nix
+    ./programs/agents/agents.nix
   ];
 }
