@@ -31,6 +31,11 @@ let
       name = "humanizer";
       fromLocal = "$HOME/.local/share/pi-skill-src/humanizer";
     }
+    {
+      name = "meiseki";
+      repo = "bamboo-nova/meiseki";
+      arg = ".agents/skills/meiseki --allow-hidden-dirs";
+    }
   ];
 
   # インストール対象 agent (gh skill install がサポートする値)。
