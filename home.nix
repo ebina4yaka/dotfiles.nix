@@ -50,13 +50,13 @@ in
   home.packages = with pkgs; [
     gnused
     gawk
-    elixir
+    beamPackages.elixir
     kotlin-language-server
     nodejs
     bruno-cli
     # rustup は rust-analyzer の shim も置く。下の nixpkgs 版と bin/ が衝突するので
     # 優先度を下げ、component を入れなくても動く nixpkgs 版を勝たせる。
-    (lowPrio rustup)
+    (lib.lowPrio rustup)
     bottom
     fzf
     lsd

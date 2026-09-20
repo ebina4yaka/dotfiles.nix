@@ -1,5 +1,14 @@
 {
+  pkgs,
+  ...
+}:
+{
   programs.nixvim = {
+    # nixvim は既定で自分の flake が pin した nixpkgs を import する。flake.nix で
+    # `inputs.nixvim.inputs.nixpkgs.follows = "nixpkgs"` にしているので、そのままだと
+    # rev が食い違って警告が出る。ホストと同じ nixpkgs を明示する。
+    nixpkgs.source = pkgs.path;
+
     nixpkgs.config.allowUnfreePredicate =
       pkg:
       builtins.elem (pkg.pname or "") [

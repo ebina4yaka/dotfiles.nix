@@ -17,6 +17,13 @@
     herdr = {
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
+      # herdr pins an older rust-overlay whose aggregated toolchain still uses
+      # the deprecated stdenv.isLinux/isDarwin aliases. Follow the newer one.
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # bun overlay that tracks the latest upstream release (oven-sh/bun's own
     # flake only exposes a devShell, not a package/overlay). Adds `pkgs.bun`.
