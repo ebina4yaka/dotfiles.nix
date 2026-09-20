@@ -3,6 +3,9 @@
 ;; nixvim と同じ modus-vivendi。Emacs 28 以降に同梱されている。
 (setq doom-theme 'modus-vivendi)
 (setq display-line-numbers-type t)   ; nixvim: opts.number
+;; treemacs は Doom の :ui モジュールで既に有効。nixvim の neo-tree に合わせて
+;; ツリーを右に出す。
+(setq treemacs-position 'right)      ; nixvim: neo-tree の window.position
 
 ;; eglot は nix のサーバーを知らないので登録する。nixvim と同じ nixd。
 (after! eglot
@@ -28,5 +31,8 @@
       "t h" (cmd! (split-window-below) (other-window 1) (+vterm/here nil))
       "t v" (cmd! (split-window-right) (other-window 1) (+vterm/here nil))
       "t f" #'+vterm/toggle
+      ;; Doom の SPC o p（ツリー開閉）は nixvim の <leader>op に合わせて forge へ
+      ;; 譲っているので、treemacs は空いている SPC o e で開く。
+      "o e" #'+treemacs/toggle
       "o p" #'forge-list-pullreqs           ; nixvim: <leader>op
       "o r" #'forge-list-requested-reviews) ; nixvim: <leader>or
