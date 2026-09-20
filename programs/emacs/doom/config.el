@@ -23,6 +23,15 @@
 ;; ここから下は nixvim の keymaps との差分だけを書く。
 ;; gd / gr / K / SPC g g は Doom 既定が nixvim と一致するので触らない。
 
+;; Ghostty は macOS で Cmd+hjkl を kitty keyboard protocol の CSI-u（super+h なら
+;; ESC[104;9u）で送ってくる（Ghostty 側の keybind 設定が要る）。Emacs はこの形式を
+;; 解釈しないので、super キーとして教える。GUI Emacs では不要。
+(when (featurep :system 'macos)
+  (dolist (pair '((104 . "h") (106 . "j") (107 . "k") (108 . "l")))
+    (define-key input-decode-map
+                (kbd (format "ESC [ %d ; 9 u" (car pair)))
+                (kbd (concat "s-" (cdr pair))))))
+
 ;; nixvim は n / t モードの <C-hjkl> を <C-w>hjkl に割り当てている。macOS では
 ;; 物理 Ctrl を押しにくいので、修飾キーを Cmd（super）に置き換える。
 ;; ターミナル入力中（nixvim の t モード相当）と treemacs のバッファでも同じ

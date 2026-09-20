@@ -167,6 +167,7 @@ in
   imports = [
     ./programs/nixvim/nvim.nix
     ./programs/helix/helix.nix
+    ./programs/ghostty/ghostty.nix
     ./programs/emacs/emacs.nix
     ./programs/tmux/tmux.nix
     ./programs/herdr/herdr.nix
