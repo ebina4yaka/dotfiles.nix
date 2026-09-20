@@ -1,4 +1,10 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
+
+let
+  # macOS の物理 Ctrl は押しにくいので、ウィンドウ移動の修飾キーを Cmd（<D->）に
+  # 置き換える。ターミナル / tmux が Cmd をアプリまで通す設定になっている必要がある。
+  winMod = if pkgs.stdenv.hostPlatform.isDarwin then "D" else "C";
+in
 {
   programs.nixvim.keymaps = [
     {
@@ -52,7 +58,7 @@
           "n"
           "t"
         ];
-        key = "<C-${d}>";
+        key = "<${winMod}-${d}>";
         action = "<C-w>${d}";
         options.remap = true;
       })

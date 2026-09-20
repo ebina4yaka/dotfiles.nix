@@ -8,6 +8,9 @@ let
   # Amount (fraction of the pane) each tmux-style resize keypress applies.
   resizeStep = "0.05";
 
+  # プレフィックスは tmux に合わせて Ctrl だが、macOS では Cmd に置き換える。
+  prefixKey = if pkgs.stdenv.hostPlatform.isDarwin then "cmd+g" else "ctrl+g";
+
   # tmux binds prefix+H/J/K/L to resize. herdr has no per-direction resize key
   # (only a resize_mode), so we replicate it with custom command bindings that
   # shell out to `herdr pane resize`. These occupy prefix+shift+h/j/k/l, which
@@ -60,7 +63,7 @@ in
     # Most herdr defaults already match tmux (focus prefix+h/j/k/l, tabs
     # prefix+c/n/p/1..9, zoom prefix+z). We only override the deltas.
     keys = {
-      prefix = "ctrl+g"; # matches the tmux `set -g prefix C-g`
+      prefix = prefixKey;
 
       # Splits: tmux uses `v` for side-by-side and `s` for stacked.
       split_vertical = "prefix+v"; # side by side (tmux split-window -h)

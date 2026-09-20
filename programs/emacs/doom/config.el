@@ -23,25 +23,23 @@
 ;; ここから下は nixvim の keymaps との差分だけを書く。
 ;; gd / gr / K / SPC g g は Doom 既定が nixvim と一致するので触らない。
 
-;; nixvim は n / t モードの <C-hjkl> を <C-w>hjkl に割り当てている。
-(map! :n "C-h" #'evil-window-left
-      :n "C-j" #'evil-window-down
-      :n "C-k" #'evil-window-up
-      :n "C-l" #'evil-window-right)
+;; nixvim は n / t モードの <C-hjkl> を <C-w>hjkl に割り当てている。macOS では
+;; 物理 Ctrl を押しにくいので、修飾キーを Cmd（super）に置き換える。
 ;; ターミナル入力中（nixvim の t モード相当）と treemacs のバッファでも同じ
 ;; キーでウィンドウを移動できるようにする。
-(map! (:after vterm
-       :map vterm-mode-map
-       "C-h" #'evil-window-left
-       "C-j" #'evil-window-down
-       "C-k" #'evil-window-up
-       "C-l" #'evil-window-right)
-      (:after treemacs-evil
-       :map evil-treemacs-state-map
-       "C-h" #'evil-window-left
-       "C-j" #'evil-window-down
-       "C-k" #'evil-window-up
-       "C-l" #'evil-window-right))
+(let ((mod (if (featurep :system 'macos) "s" "C"))
+      (nav '(("h" . evil-window-left)
+             ("j" . evil-window-down)
+             ("k" . evil-window-up)
+             ("l" . evil-window-right))))
+  (dolist (key nav)
+    (define-key evil-normal-state-map (kbd (concat mod "-" (car key))) (cdr key)))
+  (after! vterm
+    (dolist (key nav)
+      (define-key vterm-mode-map (kbd (concat mod "-" (car key))) (cdr key))))
+  (after! treemacs-evil
+    (dolist (key nav)
+      (define-key evil-treemacs-state-map (kbd (concat mod "-" (car key))) (cdr key)))))
 
 (map! :n "gn" #'eglot-rename                    ; nixvim: gn（evil の gn を潰す）
       :n "ga" #'eglot-code-actions              ; nixvim: ga（evil の ga を潰す）
