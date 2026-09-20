@@ -29,6 +29,9 @@ in
   # full annotated default with `herdr --default-config`. This file is a
   # read-only symlink into the Nix store, so edit it here, not in place.
   xdg.configFile."herdr/config.toml".source = tomlFormat.generate "herdr-config.toml" {
+    # 初回起動のセットアップ通知を出さない。未設定だと毎回出る。
+    onboarding = false;
+
     theme = {
       # Built-in: terminal, catppuccin, tokyo-night, dracula, nord, gruvbox,
       # one-dark, solarized, kanagawa, rose-pine, vesper. "terminal" inherits
