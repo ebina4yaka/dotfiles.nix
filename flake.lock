@@ -156,6 +156,26 @@
         "type": "github"
       }
     },
+    "lig": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794492936,
+        "narHash": "sha256-i6CCPMq/Bt13PovO4xzZ/SYiTTY18pcIzrIzX6QiPVQ=",
+        "owner": "KevenGoncalves",
+        "repo": "lig",
+        "rev": "92f405a4a4d7e458bebf5d93b0c4ac80ea65aa1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KevenGoncalves",
+        "repo": "lig",
+        "type": "github"
+      }
+    },
     "nix-doom-emacs-unstraightened": {
       "inputs": {
         "doomdir": "doomdir",
@@ -221,6 +241,7 @@
         "bun": "bun",
         "herdr": "herdr",
         "home-manager": "home-manager",
+        "lig": "lig",
         "nix-doom-emacs-unstraightened": "nix-doom-emacs-unstraightened",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",

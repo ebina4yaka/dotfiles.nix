@@ -31,6 +31,10 @@
       url = "github:sakiko999/nixpkg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lig = {
+      url = "github:KevenGoncalves/lig";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Builds Doom Emacs with Nix instead of straight.el, so `doom sync` is
     # never needed and the package set is pinned by flake.lock. Its own
     # nixpkgs input is unused by the home-manager module, so cut it loose
@@ -48,6 +52,7 @@
       home-manager,
       herdr,
       bun,
+      lig,
       nix-doom-emacs-unstraightened,
       ...
     }:
