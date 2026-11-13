@@ -90,6 +90,7 @@
             ./home.nix
             nixvim.homeModules.nixvim
             nix-doom-emacs-unstraightened.homeModule
+            lig.homeModules.default
           ];
         };
     in
